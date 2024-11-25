@@ -1,0 +1,14 @@
+[
+    {
+      "MembershipStatus": "Bronze",
+      "Discount": 0.00
+    },
+    {
+        "MembershipStatus": "Silver",
+        "Discount": 0.15
+    },
+    {
+        "MembershipStatus": "Gold",
+        "Discount": 0.30
+    }
+]

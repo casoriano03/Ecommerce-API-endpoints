@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/sidebar.ejs') %>
+
+    <div class="container usersContainer">
+        <h1 class="text-center">Users</h1>
+        <div class="container row mx-2">
+            <% usersDetails.forEach(user => { %>
+                <div class="container row my-3">
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">UserId</div>
+                        <div class="row"><p><%= user.id %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">First Name</div>
+                        <div class="row"><p><%= user.FirstName %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Last Name</div>
+                        <div class="row"><p><%= user.LastName %></p></div> 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Address</div>
+                        <div class="row"><p><%= user.Address %></p></div>                        
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Email</div>
+                        <div class="row"><p><%= user.Email %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Telephone</div>
+                        <div class="row"><p><%= user.Telephone %></p></div>                 
+                    </div>
+                </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

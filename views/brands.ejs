@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/sidebar.ejs') %>
+
+    <div class="container brandsContainer">
+        <h1 class="text-center">Brands</h1>
+        <div class="container my-5">
+            <h2>Add a brand</h2>
+            <p>Brand Name:</p>
+            <form action="/admin/brands" method="post">
+                <input type="text" name="Brand"><br>
+                <button type="submit" class="btn btn-primary my-3">Create</button>
+            </form>
+        </div>
+        <div>
+            <h2>Current Available Brands</h2>
+            <% brandsDetails.forEach(brands => { %>
+            <div class="card d-inline-block" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= brands.Brand %></h5>
+                </div>
+                <div class="py-3 px-3">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal-<%= brands.id %>">Edit</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editModal-<%= brands.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<%= brands.id %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editModalLabel-<%= brands.id %>">Edit Brand</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/brands/edit" method="post">
+                                        <p>New Brand Name:</p>
+                                        <input type="text" name="NewBrand">
+                                        <input type="hidden" name="brandId" value='<%= brands.id %>'>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Change</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                    <form  action='/admin/brands/delete' method="post" class="d-inline-block">
+                        <button type="submit" class="btn btn-outline-danger d-inline-block" name="BrandId" value='<%= brands.id %>'>Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

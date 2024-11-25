@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/sidebar.ejs') %>
+
+    <div class="container productsContainer">
+        <h1 class="text-center">Products</h1>
+        <div class="container py-5 my-5 border">
+            <h2>Add a product</h2>
+            <form class="row" action="/admin/products" method="post">
+                <div class="col-3">
+                    <p class="d-inline-block">Product Name: </p><br>
+                    <input type="text" name="Name"><br>
+                    <p class="d-inline-block">Product Description: </p><br>
+                    <input type="text" name="Description"><br>
+                </div>
+                <div class="col-3">
+                    <p class="d-inline-block">Product Price: </p><br>
+                    <input type="number" name="UnitPrice"><br>
+                    <p class="d-inline-block">Product Image URL: </p><br>
+                    <input type="text" name="ImageURL"><br>
+                </div>
+                <div class="col-3">
+                    <p class="d-inline-block">Product Quantity: </p><br>
+                    <input type="number" name="Quantity"><br>
+                    <p class="d-inline-block">Product Brand Name: </p><br>
+                    <input type="text" name="BrandName"><br>                   
+                </div>
+                <div class="col-3">
+                    <p class="d-inline-block">Product Category Name: </p><br>
+                    <input type="text" name="CategoryName"><br>
+                    <button type="submit" class="btn btn-primary my-3">Create</button>
+                </div>
+            </form>
+        </div>
+        <div class="container row mx-2">
+            <h2>Current Available Products</h2>
+            <% productsDetails.forEach(product => { %>
+            <div class="card d-inline-block mx-auto my-2 col-4" style="width: 19rem; height: 45rem;">
+                <img id="imgProduct" src=<%= product.ImageURL %> class="card-img-top img-thumbnail" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.Name %></h5>
+                  <p class="card-text"><%= product.Description %></p>
+                  <p>Price: $<%= product.UnitPrice %></p>
+                  <% if(product.Quantity <= 10) { %>
+                    <p style="color: red;">Quantity: <%= product.Quantity %></p>
+                  <%} else { %>
+                    <p>Quantity: <%= product.Quantity %></p>
+                  <% } %>
+                  
+                  <p>Brand: <%= product.BrandName %></p>
+                  <p>Category: <%= product.CategoryName %></p>
+                </div>
+                <div class="card-footer py-3 px-3 text-body secondary text-center">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal-<%= product.id %>">Edit</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editModal-<%= product.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<%= product.id %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editModalLabel-<%= product.id %>">Edit Product</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/products/edit" method="post">
+                                        <p>New Product Name: <input type="text" name="NewName" value='<%= product.Name %>'></p>
+                                        <p>New Product Description: <input type="text" name="NewDescription" value='<%= product.Description %>'></p>
+                                        <p>New Product Unit Price: <input type="number" name="NewUnitPrice" value='<%= product.UnitPrice %>'></p>
+                                        <p>New Product Image URL: <input type="text" name="NewImageURL" value='<%= product.ImageURL %>'></p>
+                                        <p>New Product Quantity: <input type="number" name="NewQuantity" value='<%= product.Quantity %>'></p>
+                                        <p>New Product Brand Name: <input type="text" name="NewBrandName" value='<%= product.BrandName %>'></p>
+                                        <p>New Product Category Name: <input type="text" name="NewCategoryName" value='<%= product.CategoryName %>'></p>   
+                                        <input type="hidden" name="productId" value='<%= product.id %>'>
+                                        <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Change</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                    <form  action='/admin/products/delete' method="post" class="d-inline-block">
+                        <button type="submit" class="btn btn-outline-danger d-inline-block" name="productId" value='<%= product.id %>'>Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[
+    {
+      "OrderStatus": "In Progress"
+    },
+    {
+        "OrderStatus": "Ordered"
+    },
+    {
+        "OrderStatus": "Completed"
+    }
+]

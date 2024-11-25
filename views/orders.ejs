@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/sidebar.ejs') %>
+
+    <div class="container ordersContainer">
+        <h1 class="text-center">Orders</h1>
+        <div class="container row mx-2">
+            <% ordersDetails.forEach(order => { %>
+                <% const products = JSON.parse(order.OrderedProducts) %>
+                <div class="container row my-3">
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Name</div>
+                        <div class="row"><p><%= order.UserFullName %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Order Code</div>
+                        <div class="row"><p><%= order.OrderedCode %></p></div> 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Products</div>
+                        <div class="row">
+                        <% products.forEach(item => { %>
+                             <div class="row">
+                            <div class="col my-2 ">
+                                <hr>
+                                <p>Name: <%= item.ProductsName %></p>
+                                <p>Quantity:<%= item.Quantity %></p>
+                                <p>Price:<%= item.Price %></p>
+                                <p>Subtotal:<%= item.Total %></p>
+                                <hr>
+                            </div>
+                        </div>
+                        <% }); %>
+                        </div> 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Total</div>
+                        <div class="row"><%= order.TotalAmount %></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Total Items</div>
+                        <div class="row"><p><%= order.TotalNumberOfItems %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Membership</div>
+                        <div class="row"><p><%= order.MembershipTier %></p></div>                 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Order Status</div>
+                        <div class="row"><p><%= order.OrderStatusName %></p></div>  
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Change Order Status</div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Change Order Status
+                            </button>
+                            <form action="/admin/orders/edit" method="post">
+                                <ul class="dropdown-menu">
+                                    <% orderStatusDetails.forEach(status => { %>
+                                        <input type="hidden" name="OrderId" value='<%= order.id %>'>
+                                        <li><button class="btn btn-outline-warning" style="width: 100%;" type="submit" name="newOrderStatusId" value='<%= status.dataValues.id%>'> <%= status.dataValues.OrderStatus %> </button></li>
+                                    <% }); %>
+                                </ul>
+                            </form>
+                            
+                          </div>
+                    </div>
+                </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

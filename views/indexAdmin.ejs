@@ -1,0 +1,56 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/sidebar.ejs') %>
+
+      <!-- feature -->
+
+      <div class="container indexContainer d-block px-4 py-5" id="featured-3">
+        <h2 class="pb-2 border-bottom">Hey Admin!</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+              $<%= salesTotal %>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Sales</h3>
+            <p>Total sales amount of the online store from start to current date.</p>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+              <%= itemsTotal %>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Items Sold</h3>
+            <p>Total number of items sold.</p>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+              <%= usersTotal %>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Users</h3>
+            <p>Total number of registered users.</p>
+          </div>
+        </div>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+                <%= lowProduct %>
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Low Product Inventory</h3>
+              <p>Total number of products 10 pieces and under.</p>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+                <%= ordersTotal %>
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Orders</h3>
+              <p>Total number of orders.</p>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+                <%= deliveryTotal %>
+              </div>
+              <h3 class="fs-2 text-body-emphasis">Delivery</h3>
+              <p>Total number of orders for delivery.</p>
+            </div>
+          </div>
+      </div>
+
+      <%- include('./partials/footer.ejs') %>

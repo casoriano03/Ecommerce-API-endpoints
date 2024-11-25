@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="profile-header">
+            <img src="/images/avatar.jpg" alt="Profile Picture" class="profile-pic">
+            <h1 class="profile-name"><%= userDetails[0].dataValues.FirstName %> <%= userDetails[0].dataValues.LastName %></h1>
+            <p class="profile-email"><%= userDetails[0].dataValues.Email %></p>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2>Membership Status</h2>
+                <ul class="list-unstyled">
+                    <li><strong>Membership Tier:</strong> <%= membershipStatusDetails.dataValues.MembershipStatus %></li>
+                    <li><strong>Discount:</strong> <%= membershipStatusDetails.dataValues.Discount %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2>Contact Information</h2>
+                <ul class="list-unstyled">
+                    <li><strong>Phone:</strong> <%= userDetails[0].dataValues.Telephone %></li>
+                    <li><strong>Address:</strong> <%= userDetails[0].dataValues.Address %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container row mx-2">
+            <% orderDetails.forEach(order => { %>
+                <% const products = JSON.parse(order.OrderedProducts) %>
+                <div class="container row my-3">               
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Order Code</div>
+                        <div class="row"><p><%= order.OrderedCode %></p></div> 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Products</div>
+                        <div class="row">
+                        <% products.forEach(item => { %>
+                             <div class="row">
+                            <div class="col my-2 ">
+                                <hr>
+                                <p>Name: <%= item.ProductsName %></p>
+                                <p>Quantity:<%= item.Quantity %></p>
+                                <p>Price:<%= item.Price %></p>
+                                <p>Subtotal:<%= item.Total %></p>
+                                <hr>
+                            </div>
+                        </div>
+                        <% }); %>
+                        </div> 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Total</div>
+                        <div class="row"><%= order.TotalAmount %></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Total Items</div>
+                        <div class="row"><p><%= order.TotalNumberOfItems %></p></div>
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Membership</div>
+                        <div class="row"><p><%= order.MembershipTier %></p></div>                 
+                    </div>
+                    <div class="col border">
+                        <div class="row border text-bg-secondary">Order Status</div>
+                        <div class="row"><p><%= order.OrderStatusName %></p></div>  
+                    </div>                 
+                </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>

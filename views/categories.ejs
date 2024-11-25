@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/sidebar.ejs') %>
+
+    <div class="container categoriesContainer">
+        <h1 class="text-center">Categories</h1>
+        <div class="container my-5">
+            <h2>Add a category</h2>
+            <p>Category Name:</p>
+            <form action="/admin/categories" method="post">
+                <input type="text" name="Category"><br>
+                <button type="submit" class="btn btn-primary my-3">Create</button>
+            </form>
+        </div>
+        <div>
+            <h2>Current Available Categories</h2>
+            <% categoriesDetails.forEach(category => { %>
+            <div class="card d-inline-block" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= category.Category %></h5>
+                </div>
+                <div class="py-3 px-3">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal-<%= category.id %>">Edit</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editModal-<%= category.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<%= category.id %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editModalLabel-<%= category.id %>">Edit Category</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/categories/edit" method="post">
+                                        <p>New Catgeory Name:</p>
+                                        <input type="text" name="NewCategory">
+                                        <input type="hidden" name="CategoryId" value='<%= category.id %>'>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Change</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                    <form  action='/admin/categories/delete' method="post" class="d-inline-block">
+                        <button type="submit" class="btn btn-outline-danger d-inline-block" name="CategoryId" value='<%= category.id %>'>Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>           
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
